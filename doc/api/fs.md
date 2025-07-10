@@ -1186,8 +1186,8 @@ const { glob } = require('node:fs/promises');
 * For better performance with large directory trees, consider using more specific
   patterns to reduce the search scope
 
-The same glob pattern syntax is supported by [`path.matchesGlob()`][] for
-matching paths without file system access.
+[`path.matchesGlob()`][] supports the same basic glob pattern syntax for
+in-memory path matching, but does not include the `exclude` option.
 
 ### `fsPromises.lchmod(path, mode)`
 
