@@ -1113,6 +1113,7 @@ The glob implementation supports the following pattern syntax:
 * `[abc]` - Matches any character in the brackets
 * `[a-z]` - Matches any character in the range
 * `[!abc]` or `[^abc]` - Matches any character not in the brackets
+* `[!a-z]` or `[^a-z]` - Matches any character not in the range
 
 **Globstar:**
 * `**` - Matches zero or more directories recursively
