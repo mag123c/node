@@ -247,6 +247,28 @@ MaybeLocal<Object> GetEphemeralKey(Environment* env, const SSLPointer& ssl) {
         }
       }
       break;
+    default:
+      // Check if it's a hybrid key (OpenSSL 3.5+ post-quantum keys)
+      // X25519MLKEM768, SecP384r1MLKEM1024, etc.
+      {
+        const char* key_type_name = OBJ_nid2sn(kid);
+        if (key_type_name != nullptr) {
+          // For hybrid keys, report as Hybrid type with the algorithm name
+          Local<v8::String> type_str = 
+              OneByteString(env->isolate(), "Hybrid");
+          Local<v8::String> name_str = 
+              OneByteString(env->isolate(), key_type_name);
+          if (info->Set(context, env->type_string(), type_str).IsNothing() ||
+              info->Set(context, env->name_string(), name_str).IsNothing() ||
+              info->Set(context,
+                        env->size_string(),
+                        Integer::New(env->isolate(), key.bits()))
+                  .IsNothing()) {
+            return MaybeLocal<Object>();
+          }
+        }
+      }
+      break;
   }
 
   return scope.Escape(info);

@@ -80,3 +80,14 @@ test(256, 'ECDH', 'prime256v1', 'ECDHE-RSA-AES256-GCM-SHA384');
 test(521, 'ECDH', 'secp521r1', 'ECDHE-RSA-AES256-GCM-SHA384');
 test(253, 'ECDH', 'X25519', 'ECDHE-RSA-AES256-GCM-SHA384');
 test(448, 'ECDH', 'X448', 'ECDHE-RSA-AES256-GCM-SHA384');
+
+// Test hybrid post-quantum keys (OpenSSL 3.5+)
+if (hasOpenSSL(3, 5)) {
+  // Note: These tests require TLS 1.3 and specific cipher suites
+  // The actual test implementation would need server support for hybrid keys
+  // For now, we add a placeholder test that can be expanded when hybrid key
+  // support is fully available in the test infrastructure
+  
+  // TODO: Add tests for X25519MLKEM768, SecP384r1MLKEM1024 when available
+  // test(NID, 'Hybrid', 'X25519MLKEM768', 'TLS_AES_256_GCM_SHA384');
+}
